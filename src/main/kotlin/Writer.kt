@@ -8,6 +8,6 @@ class Writer (var out: PrintStream = System.out){
     }
 
     fun write(s: Array<String>) {
-        s.forEach { out.println(it) }
+        s.forEachIndexed { i, it -> out.println("${i + 1}-$it") }
     }
 }
