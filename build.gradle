@@ -1,6 +1,7 @@
 plugins {
     id 'java'
     id 'org.jetbrains.kotlin.jvm' version '1.3.40'
+    id 'jacoco'
 }
 
 group 'org.kata'
@@ -20,9 +21,23 @@ dependencies {
 
 }
 
+jacoco {
+    toolVersion = "0.8.3"
+    reportsDir = file("build/jacocoReportDir")
+}
+
 compileKotlin {
     kotlinOptions.jvmTarget = "1.8"
 }
 compileTestKotlin {
     kotlinOptions.jvmTarget = "1.8"
+}
+
+jacocoTestReport {
+    group = "Reporting"
+    reports {
+        xml.enabled true
+        csv.enabled false
+        html.enabled true
+    }
 }
