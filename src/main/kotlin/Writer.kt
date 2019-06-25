@@ -1,13 +1,22 @@
+import java.io.InputStream
 import java.io.PrintStream
-import java.util.function.Consumer
+import java.util.*
+import kotlin.properties.Delegates
 
-class Writer (var out: PrintStream = System.out){
+class Writer (var out: PrintStream = System.out, var input: InputStream = System.`in`){
+    var inp: Scanner by Delegates.notNull()
 
-    fun write(s: String){
-        out.println(s)
+    init{
+        inp = Scanner(input)
     }
 
-    fun write(s: Array<String>) {
-        s.forEachIndexed { i, it -> out.println("${i + 1}-$it") }
-    }
+    fun write(s: String) = out.println(s)
+
+    fun write(s: Array<String>) = s.forEachIndexed { i, it -> write("${i}-$it") }
+
+    fun writeItem(arr: Array<String>, i: Int) = write(arr[i])
+
+    fun waitAndWriteElement(arr: Array<String>) = writeItem(arr, readNext())
+
+    fun readNext(): Int  = inp.next().toInt()
 }
